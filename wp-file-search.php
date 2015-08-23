@@ -57,6 +57,11 @@ register_deactivation_hook( __FILE__, 'deactivate_wp_file_search' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-wp-file-search.php';
 
+/*
+ * Include admin class
+ */
+require plugin_dir_path( __FILE__ ) . 'admin/class-wp-file-search-admin.php';
+
 /**
  * Begins execution of the plugin.
  *
