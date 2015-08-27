@@ -22,6 +22,8 @@
  */
 class Wp_File_Search_Public {
 
+    const OPTIONS_KEY = "file_search";
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -109,25 +111,30 @@ class Wp_File_Search_Public {
 
 		global $wpdb;
 
+        $options = get_option(self::OPTIONS_KEY);
+        $search_type = $options['search_type'];
+
 		$search_terms = get_query_var('search_terms');
-		if ( empty( $search_terms ) || 1) {
+		if ( empty( $search_terms )) {
 			return $search;
 		}
 		
-		$inject = "($wpdb->posts.ID IN (
-							SELECT $wpdb->posts.post_parent 
-							FROM $wpdb->posts 
-							INNER JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) 
-							WHERE $wpdb->postmeta.meta_key = '_doc_content' AND 
-							(1 = 0 ";
+        if ($search_type == 'attached') {
+		    $inject = "($wpdb->posts.ID IN (
+							    SELECT $wpdb->posts.post_parent 
+							    FROM $wpdb->posts 
+							    INNER JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) 
+							    WHERE $wpdb->postmeta.meta_key = '_doc_content' AND 
+							    (1 = 0 ";
 
-		foreach ( $search_terms as $term ) {
-			$like = '%' . $wpdb->esc_like( $term ) . '%';
-			$inject .= $wpdb->prepare( "OR ($wpdb->postmeta.meta_value LIKE %s)", $like );
-		}
+		    foreach ( $search_terms as $term ) {
+			    $like = '%' . $wpdb->esc_like( $term ) . '%';
+			    $inject .= $wpdb->prepare( "OR ($wpdb->postmeta.meta_value LIKE %s)", $like );
+		    }
 		
-		$inject .= "))) OR ";
-		$search = substr_replace($search, $inject, 6, 0);
+		    $inject .= "))) OR ";
+		    $search = substr_replace($search, $inject, 6, 0);
+        }
 
 		return $search;
 
