@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
     //update array with options
     update_option(self::OPTIONS_KEY, $options);
     ?>
-    <div class="updated"><p><strong><?php echo __('Settings saved.', 'search_on_files'); ?></strong></p></div>
+    <div class="updated"><p><strong><?php  _e('Settings saved.', 'search_on_files'); ?></strong></p></div>
     <?php
 }
 // header
@@ -42,21 +42,19 @@ echo "<h2>" . __('WP File Search Settings', 'search_on_files') . "</h2>";
 <hr />
 <form name="search_files_setting_form" method="post" action="">
     <!--Έλεγχος αρχείων-->
-    <h3><?php echo __('Έλεγχος αρχείων', 'search_on_files'); ?></h3>
+    <h3><?php  _e('Checking files', 'search_on_files'); ?></h3>
     <span class="notes">
         ***
         <?php
-        echo __('Με την επιλογή άμεσου ελέγχου προσθαφαίρεσης αρχείων,
-                        η ανάγνωση ενός αρχείου γίνεται κατά την στιγμή μεταφόρτωσης του. 
-                        Σε κάθε άλλη περίπτωση ο έλεγχος των αρχείων γίνεται κάθε 3 ώρες ώστε να αποφεύγονται αργοί χρόνοι απόκρισης. Η επιλογή άμεσου ελέγχου προσθαφαίρεσης αρχείων δεν συνιστάται. ', 'search_on_files');
+        _e('By selecting Direct file parsing, each file is being parsed during at uploading time. Otherwse all files are checked and parsed in an time interval of 3 hours.  It is recommended NOT to check the direct file parsing. ', 'search_on_files');
         ?></span> <br/> <br/>
     <input name="<?php echo self::OPT_DIRECT_PARSING; ?>" type="checkbox" <?php checked($options[self::OPT_DIRECT_PARSING], TRUE); ?> value='direct_parsing' />
-    <?php echo __('Άμεσος έλεγχος προσθαφαίρεσης αρχείων', 'search_on_files'); ?><br>
+    <?php _e('Direct file parsing', 'search_on_files'); ?><br>
 
     <!--Τύποι αρχείων-->
-    <h3><?php echo __('Τύποι αρχείων', 'search_on_files'); ?></h3>
+    <h3><?php _e('File format', 'search_on_files'); ?></h3>
     <span class="notes">***
-        <?php echo __('Επιλέξτε τους τύπους αρχείων στους οποίους θα γίνεται αναζήτηση', 'search_on_files'); ?>
+        <?php _e('Select the file formats that will be searchable', 'search_on_files'); ?>
     </span><br><br>
     <input name="<?php echo self::OPT_FILE_TYPES; ?>[]" type="checkbox" <?php if (in_array('pdf', $options[self::OPT_FILE_TYPES])):?>checked<?php endif; ?> value='pdf' />
     PDF<br>
@@ -66,13 +64,13 @@ echo "<h2>" . __('WP File Search Settings', 'search_on_files') . "</h2>";
     ODT<br>
 
     <!--Αναζήτηση Αρχείων-->
-    <h3><?php echo __('Αναζήτηση αρχείων', 'search_on_files'); ?></h3>
+    <h3><?php _e('File search', 'search_on_files'); ?></h3>
     <span class="notes">
         ***
-        <?php echo __('Επιλέξτε αν θα αναζητούνται όλα τα αρχεία ή μονο τα αυτά που είναι attached σε κάποιο άρθρο', 'search_on_files'); ?></span><br><br>
-    <input type="radio" name="<?php echo self::OPT_SEARCH_TYPE; ?>" value="all" <?php checked('all', $options[self::OPT_SEARCH_TYPE]); ?> /><span style="margin-right: 8px;"><?php echo __('Αναζήτηση σε όλα τα αρχεία (Εμφάνιση των αρχείων στην σελίδα αποτελεσμάτων)', 'search_on_files'); ?></span>
+        <?php _e('Search on all files or only on attached files', 'search_on_files'); ?></span><br><br>
+    <input type="radio" name="<?php echo self::OPT_SEARCH_TYPE; ?>" value="all" <?php checked('all', $options[self::OPT_SEARCH_TYPE]); ?> /><span style="margin-right: 8px;"><?php _e('Search on all files (Files will be appeared on search results)', 'search_on_files'); ?></span>
     <br>
-    <input type="radio" name="<?php echo self::OPT_SEARCH_TYPE; ?>" value="attached" <?php checked('attached', $options[self::OPT_SEARCH_TYPE]); ?> /><?php echo __('Αναζήτηση μόνο στα αρχεία που έχουμε επισυναφθεί σε κάποιο άρθρο η σελίδα (Εμφάνιση των άρθρων/σελίδων στην σελίδα αποτελεσμάτων)', 'search_on_files'); ?>     
+    <input type="radio" name="<?php echo self::OPT_SEARCH_TYPE; ?>" value="attached" <?php checked('attached', $options[self::OPT_SEARCH_TYPE]); ?> /><?php _e('Search only the files that have been attached to an article or a page (The corresponding articles/pages will be appeared on search results)', 'search_on_files'); ?>     
 
     <p>
         <input type="submit" name="submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
