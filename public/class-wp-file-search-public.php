@@ -120,6 +120,11 @@ class Wp_File_Search_Public {
 			return $search;
 		}
 
+        /**
+         * In 'attached' query types, 2 inner joins will be performed on the same table (postmeta).
+         * 1) For searching the actual contents (based on the meta_key: _doc_cntent)
+         * 2) For searching its extension (based on the meta_key: _wp_attached_file)
+         */
         if ($search_type == 'attached') {
             $query_file_types = "'" . implode("','", $file_types) . "'";
 
