@@ -113,23 +113,29 @@ class Wp_File_Search_Public {
 
         $options = get_option(self::OPTIONS_KEY);
         $search_type = $options['search_type'];
+        $file_types = $options['file_types'];
 
 		$search_terms = get_query_var('search_terms');
 		if ( empty( $search_terms )) {
 			return $search;
 		}
-		
+
         if ($search_type == 'attached') {
+            $query_file_types = "'" . implode("','", $file_types) . "'";
+
 		    $inject = "($wpdb->posts.ID IN (
-							    SELECT $wpdb->posts.post_parent 
-							    FROM $wpdb->posts 
-							    INNER JOIN $wpdb->postmeta ON ( $wpdb->posts.ID = $wpdb->postmeta.post_id ) 
-							    WHERE $wpdb->postmeta.meta_key = '_doc_content' AND 
+							    SELECT p.post_parent 
+							    FROM $wpdb->posts p 
+							    INNER JOIN $wpdb->postmeta pm ON ( p.ID = pm.post_id ) 
+							    INNER JOIN $wpdb->postmeta pm2 ON ( p.ID = pm.post_id ) 
+							    WHERE pm.meta_key = '_doc_content' AND 
+							    pm2.meta_key = '_wp_attached_file' AND 
+							    SUBSTRING_INDEX(pm2.meta_value, '.', -1) IN ($query_file_types) AND 
 							    (1 = 0 ";
 
 		    foreach ( $search_terms as $term ) {
 			    $like = '%' . $wpdb->esc_like( $term ) . '%';
-			    $inject .= $wpdb->prepare( "OR ($wpdb->postmeta.meta_value LIKE %s)", $like );
+			    $inject .= $wpdb->prepare( "OR (pm.meta_value LIKE %s)", $like );
 		    }
 		
 		    $inject .= "))) OR ";
