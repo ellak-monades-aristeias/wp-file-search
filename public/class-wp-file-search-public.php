@@ -103,7 +103,7 @@ class Wp_File_Search_Public {
 	}
 
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
+	 * Implement the 'posts_search' hook for custom search.
 	 *
 	 * @since    1.0.0
 	 */
