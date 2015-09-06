@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: wp-file-search\n"
-"POT-Creation-Date: 2015-08-31 23:14+0200\n"
-"PO-Revision-Date: 2015-08-31 23:16+0200\n"
+"Project-Id-Version: FileSearchTranslation\n"
+"POT-Creation-Date: 2015-09-06 12:10+0200\n"
+"PO-Revision-Date: 2015-09-06 12:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -12,3 +12,59 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: C:\\xampp\\htdocs\\wordpress\\wp-content\\plugins\\wp-"
+"file-search\\admin\\partials\n"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:20
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:35
+msgid "Settings saved."
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:39
+msgid "WP File Search Settings"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:45
+msgid "Checking files"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:49
+msgid ""
+"By selecting Direct file parsing, each file is being parsed during at "
+"uploading time. Otherwse all files are checked and parsed in an time "
+"interval of 3 hours.  It is recommended NOT to check the direct file "
+"parsing. "
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:52
+msgid "Direct file parsing"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:55
+msgid "File format"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:57
+msgid "Select the file formats that will be searchable"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:67
+msgid "File search"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:70
+msgid "Search on all files or only on attached files"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:71
+msgid "Search on all files (Files will be appeared on search results)"
+msgstr ""
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:73
+msgid ""
+"Search only the files that have been attached to an article or a page (The "
+"corresponding articles/pages will be appeared on search results)"
+msgstr ""
