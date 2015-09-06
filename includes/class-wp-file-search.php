@@ -138,7 +138,6 @@ class Wp_File_Search {
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -172,6 +171,8 @@ class Wp_File_Search {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		$this->loader->add_filter( 'posts_search', $plugin_public, 'posts_search' );
+		$this->loader->add_filter( 'posts_where', $plugin_public, 'posts_where' );
+		$this->loader->add_filter( 'posts_request', $plugin_public, 'posts_request' );
 	}
 
 	/**

@@ -103,30 +103,30 @@ class Wp_File_Search_Public {
 	}
 
 	/**
-	 * Implement the 'posts_search' hook for custom search.
+	 * Implement the 'posts_search' hook for custom search, when search_type
+	 * is set to attached.
 	 *
 	 * @since    1.0.0
 	 */
 	public function posts_search($search) {
-
 		global $wpdb;
 
         $options = get_option(self::OPTIONS_KEY);
         $search_type = $options['search_type'];
         $file_types = $options['file_types'];
+        $query_file_types = "'" . implode("','", $file_types) . "'";
 
 		$search_terms = get_query_var('search_terms');
-		if ( empty( $search_terms )) {
+		if (empty( $search_terms )) {
 			return $search;
 		}
 
         /**
-         * In 'attached' query types, 2 inner joins will be performed on the same table (postmeta).
+         * In 'attached' query type, 2 inner joins will be performed on the same table (postmeta).
          * 1) For searching the actual contents (based on the meta_key: _doc_cntent)
          * 2) For searching its extension (based on the meta_key: _wp_attached_file)
          */
         if ($search_type == 'attached') {
-            $query_file_types = "'" . implode("','", $file_types) . "'";
 
 		    $inject = "($wpdb->posts.ID IN (
 							    SELECT p.post_parent 
@@ -145,10 +145,72 @@ class Wp_File_Search_Public {
 		
 		    $inject .= "))) OR ";
 		    $search = substr_replace($search, $inject, 6, 0);
+        /**
+         * In 'all' query type, no inner join is required but 2 nested queries 
+         * targeting at the same key/values of the postmeta table. 
+         */
+        } else if ($search_type == 'all') {
+			$inject = "($wpdb->posts.id IN (
+							SELECT pm.post_id
+							FROM $wpdb->postmeta pm
+							WHERE 
+							    $wpdb->posts.ID = pm.post_id AND 
+							    pm.meta_key = '_wp_attached_file' AND
+							    SUBSTRING_INDEX(pm.meta_value, '.', -1) IN ($query_file_types) 
+							) AND
+							$wpdb->posts.id IN (
+								SELECT pm2.post_id 
+								FROM $wpdb->postmeta pm2
+								WHERE 
+								    $wpdb->posts.ID = pm2.post_id AND 
+								    pm2.meta_key = '_doc_content' AND  
+								    (1 = 0 ";
+
+		    foreach ( $search_terms as $term ) {
+			    $like = '%' . $wpdb->esc_like( $term ) . '%';
+			    $inject .= $wpdb->prepare( "OR (pm2.meta_value LIKE %s)", $like );
+		    }
+		
+		    $inject .= "))) OR ";
+			$search = substr_replace($search, $inject, 6, 0);
         }
 
 		return $search;
 
+	}
+
+	/**
+	 * Implement the 'posts_where' hook for custom search, when search_type is
+	 * set to all.
+	 *
+	 * @since    1.0.0
+	 */
+	public function posts_where($where) {
+		global $wpdb;
+
+		$options = get_option(self::OPTIONS_KEY);
+        $search_type = $options['search_type'];
+
+		$search_terms = get_query_var('search_terms');
+		if (empty( $search_terms )) {
+			return $where;
+		}
+
+        if ($search_type == 'all') {
+
+			$search = "$wpdb->posts.post_status = 'publish'";
+			$pos = strpos($where, $search);
+			$inject = " ($wpdb->posts.post_status = 'inherit' AND 
+						$wpdb->posts.post_type = 'attachment' ) OR ";
+
+			$where = substr_replace($where, $inject, $pos, 0);
+		}
+
+		return $where;
+	}
+
+	public function posts_request($request) {
+		return $request;
 	}
 
 }
