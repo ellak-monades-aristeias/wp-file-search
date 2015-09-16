@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FileSearchTranslation\n"
-"POT-Creation-Date: 2015-09-06 12:10+0200\n"
-"PO-Revision-Date: 2015-09-06 12:13+0200\n"
+"POT-Creation-Date: 2015-09-06 17:01+0200\n"
+"PO-Revision-Date: 2015-09-06 17:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -35,45 +35,52 @@ msgstr "Έλεγχος αρχείων"
 msgid ""
 "By selecting Direct file parsing, each file is being parsed during at "
 "uploading time. Otherwse all files are checked and parsed in an time "
-"interval of 3 hours.  It is recommended NOT to check the direct  file "
-"control. "
+"interval of 3 hours. It is recommended NOT to check the direct file parsing."
 msgstr ""
 "Με την επιλογή άμεσου ελέγχου προσθαφαίρεσης αρχείων,η ανάγνωση ενός αρχείου "
 "γίνεται κατά την στιγμή μεταφόρτωσης του. Σε κάθε άλλη περίπτωση ο έλεγχος "
 "των αρχείων γίνεται κάθε 3 ώρες ώστε να αποφεύγονται αργοί χρόνοι απόκρισης. "
-"Η επιλογή άμεσου ελέγχου προσθαφαίρεσης αρχείων δεν συνιστάται. "
+"Η επιλογή άμεσου ελέγχου προσθαφαίρεσης αρχείων δεν συνιστάται."
 
-#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:52
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:53
 msgid "Direct file parsing"
 msgstr "Άμεσος έλεγχος προσθαφαίρεσης αρχείων"
 
-#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:55
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:56
 msgid "File format"
 msgstr "Τύποι αρχείων"
 
-#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:57
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:58
 msgid "Select the file formats that will be searchable"
 msgstr "Επιλέξτε τους τύπους αρχείων στους οποίους θα γίνεται αναζήτηση"
 
-#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:67
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:68
 msgid "File search"
 msgstr "Αναζήτηση αρχείων"
 
-#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:70
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:71
 msgid "Search on all files or only on attached files"
 msgstr ""
 "Επιλέξτε αν θα αναζητούνται όλα τα αρχεία ή μονο τα αυτά που είναι attached "
 "σε κάποιο άρθρο-> "
 
-#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:71
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:72
 msgid "Search on all files (Files will be appeared on search results)"
 msgstr ""
 "Αναζήτηση σε όλα τα αρχεία (Εμφάνιση των αρχείων στην σελίδα αποτελεσμάτων)->"
 
-#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:73
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:74
 msgid ""
 "Search only the files that have been attached to an article or a page (The "
 "corresponding articles/pages will be appeared on search results)"
 msgstr ""
 "Αναζήτηση μόνο στα αρχεία που έχουμε επισυναφθεί σε κάποιο άρθρο η σελίδα "
 "(Εμφάνιση των άρθρων/σελίδων στην σελίδα αποτελεσμάτων) ->"
+
+#~ msgid ""
+#~ "By selecting Direct file parsing, each file is being parsed during at "
+#~ "uploading time"
+#~ msgstr "sdddcd"
+
+#~ msgid "By selecting"
+#~ msgstr "Epilegontas"
