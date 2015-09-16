@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FileSearchTranslation\n"
+"POT-Creation-Date: 2015-09-06 17:01+0200\n"
+"PO-Revision-Date: 2015-09-06 17:03+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: C:\\xampp\\htdocs\\wordpress\\wp-content\\plugins\\wp-"
+"file-search\\admin\\partials\n"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:20
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Δεν έχετε επαρκή δικαιώματα για να δείτε αυτή τη σελίδα."
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:35
+msgid "Settings saved."
+msgstr "Αποθήκευση ρυθμίσεων"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:39
+msgid "WP File Search Settings"
+msgstr "WP File Search Settings"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:45
+msgid "Checking files"
+msgstr "Έλεγχος αρχείων"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:49
+msgid ""
+"By selecting Direct file parsing, each file is being parsed during at "
+"uploading time. Otherwse all files are checked and parsed in an time "
+"interval of 3 hours. It is recommended NOT to check the direct file parsing."
+msgstr ""
+"Με την επιλογή άμεσου ελέγχου προσθαφαίρεσης αρχείων,η ανάγνωση ενός αρχείου "
+"γίνεται κατά την στιγμή μεταφόρτωσης του. Σε κάθε άλλη περίπτωση ο έλεγχος "
+"των αρχείων γίνεται κάθε 3 ώρες ώστε να αποφεύγονται αργοί χρόνοι απόκρισης. "
+"Η επιλογή άμεσου ελέγχου προσθαφαίρεσης αρχείων δεν συνιστάται."
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:53
+msgid "Direct file parsing"
+msgstr "Άμεσος έλεγχος προσθαφαίρεσης αρχείων"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:56
+msgid "File format"
+msgstr "Τύποι αρχείων"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:58
+msgid "Select the file formats that will be searchable"
+msgstr "Επιλέξτε τους τύπους αρχείων στους οποίους θα γίνεται αναζήτηση"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:68
+msgid "File search"
+msgstr "Αναζήτηση αρχείων"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:71
+msgid "Search on all files or only on attached files"
+msgstr ""
+"Επιλέξτε αν θα αναζητούνται όλα τα αρχεία ή μονο τα αυτά που είναι attached "
+"σε κάποιο άρθρο-> "
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:72
+msgid "Search on all files (Files will be appeared on search results)"
+msgstr ""
+"Αναζήτηση σε όλα τα αρχεία (Εμφάνιση των αρχείων στην σελίδα αποτελεσμάτων)->"
+
+#: C:\xampp\htdocs\wordpress\wp-content\plugins\wp-file-search\admin\partials/wp-file-search-admin-display.php:74
+msgid ""
+"Search only the files that have been attached to an article or a page (The "
+"corresponding articles/pages will be appeared on search results)"
+msgstr ""
+"Αναζήτηση μόνο στα αρχεία που έχουμε επισυναφθεί σε κάποιο άρθρο η σελίδα "
+"(Εμφάνιση των άρθρων/σελίδων στην σελίδα αποτελεσμάτων) ->"
+
+#~ msgid ""
+#~ "By selecting Direct file parsing, each file is being parsed during at "
+#~ "uploading time"
+#~ msgstr "sdddcd"
+
+#~ msgid "By selecting"
+#~ msgstr "Epilegontas"
