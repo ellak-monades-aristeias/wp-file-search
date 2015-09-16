@@ -60,3 +60,7 @@ Thumbs.db
 
 # ignore node/grunt dependency directories
 node_modules/
+
+# ignore composer files
+composer.phar
+vendor/
