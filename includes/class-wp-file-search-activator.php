@@ -23,14 +23,14 @@
 class Wp_File_Search_Activator {
 
 	/**
-	 * Short Description. (use period)
+	 * Activates the "parsing document" scheduled task.
 	 *
-	 * Long Description.
+	 * Sets up a cron job to check (every hour), parse and save the contents of new documents.
 	 *
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		wp_schedule_event(time(), 'hourly', 'document_lookup'); 
 	}
 
 }

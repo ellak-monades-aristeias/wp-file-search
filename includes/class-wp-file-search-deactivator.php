@@ -23,14 +23,14 @@
 class Wp_File_Search_Deactivator {
 
 	/**
-	 * Short Description. (use period)
+	 * Deactivates the "parsing document" scheduled task.
 	 *
-	 * Long Description.
+	 * There is no need to run the scheduled task if the plugin is de-activated.
 	 *
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		wp_clear_scheduled_hook('parse_documents');
 	}
 
 }
