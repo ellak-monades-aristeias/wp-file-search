@@ -5,7 +5,7 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       http://tessera.gr
+ * @link       https://github.com/ellak-monades-aristeias/wp-file-search
  * @since      1.0.0
  *
  * @package    Wp_File_Search

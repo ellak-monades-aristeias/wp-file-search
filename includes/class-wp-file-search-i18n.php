@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://tessera.gr
+ * @link       https://github.com/ellak-monades-aristeias/wp-file-search
  * @since      1.0.0
  *
  * @package    Wp_File_Search
@@ -22,7 +22,7 @@
  * @since      1.0.0
  * @package    Wp_File_Search
  * @subpackage Wp_File_Search/includes
- * @author     Antonis Balasas <antoniom@tessera.gr>
+ * @author     Antonis Balasas <abalasas@gmail.com>, Anna Damtsa <andamtsa@gmail.com>, Maria Oikonomou <oikonomou.d.maria@gmail.com>
  */
 class Wp_File_Search_i18n {
 
