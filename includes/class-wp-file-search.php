@@ -29,6 +29,8 @@
  */
 class Wp_File_Search {
 
+	const LAST_UPDATE_KEY = "last_update_key";
+
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
@@ -76,6 +78,7 @@ class Wp_File_Search {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		$this->define_system_hooks();
 	}
 
 	/**
@@ -184,6 +187,17 @@ class Wp_File_Search {
 	}
 
 	/**
+	 *
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_system_hooks() {
+		$this->loader->add_action( 'document_lookup', $this, 'parse_documents' );
+		$this->loader->add_action( 'wp_loaded', $this, 'parse_documents' );
+	}
+
+	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
 	 * @since    1.0.0
@@ -221,6 +235,78 @@ class Wp_File_Search {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * Retrieve the unparsed documents.
+	 *
+	 * @since     1.0.0
+	 * @return    array    The list of attachment posts who have not been parsed yet.
+	 */
+	private function get_unparsed_documents() {
+		$last_update = get_option(self::LAST_UPDATE_KEY);
+		global $wpdb;
+		$query = "SELECT 
+						id, 
+						post_mime_type,
+						pm.meta_value as filename
+					FROM 
+						$wpdb->posts p
+					LEFT JOIN 
+						$wpdb->postmeta pm ON pm.post_id = p.id
+					LEFT JOIN 
+						$wpdb->postmeta pm2 ON pm2.post_id = p.id
+					WHERE 
+						p.post_type = 'attachment' AND
+						p.post_modified_gmt >= '$last_update' AND
+						pm.meta_key = '_wp_attached_file' AND 
+						pm2.meta_id NOT IN (
+							SELECT pm3.meta_id 
+							FROM $wpdb->postmeta pm3
+							WHERE pm3.meta_key='_doc_content' 
+						)";
+
+		// save to wp_postmeta
+		$results = $wpdb->get_results($query);
+
+		// access plugin settings
+		$unparsed = [];
+		foreach($results as $result) {
+			$unparsed[] = [
+							'post_id' => $result->id,
+							'mime_type' => $result->post_mime_type, 
+							'filename' => $result->filename
+						];
+		}
+
+		return $unparsed;
+	}
+
+	private function save_doc_contents($post_id, $doc_contents) {
+		add_post_meta($post_id, '_doc_content', $doc_contents, TRUE);
+	}
+
+	public function parse_documents() {
+
+		$documents = $this->get_unparsed_documents();
+		foreach($documents as $document) {
+			switch ($document['mime_type']) {
+				case 'application/pdf':
+					$filepath = './wp-content/uploads/' . $document['filename'];
+					$content = PdfParser::parse($filepath);
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+
+			// add content to postmeta
+			$this->save_doc_contents($document['post_id'], $content);
+		}
+
+		// update last parsing date
+		update_option(self::LAST_UPDATE_KEY, gmdate('Y-m-d H:i:s'));
 	}
 
 }
