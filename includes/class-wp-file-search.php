@@ -194,7 +194,7 @@ class Wp_File_Search {
 	 */
 	private function define_system_hooks() {
 		$this->loader->add_action( 'document_lookup', $this, 'parse_documents' );
-		$this->loader->add_action( 'wp_loaded', $this, 'parse_documents' );
+		//$this->loader->add_action( 'wp_loaded', $this, 'parse_documents' );
 	}
 
 	/**
