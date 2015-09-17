@@ -244,7 +244,8 @@ class Wp_File_Search {
 	 * @return    array    The list of attachment posts who have not been parsed yet.
 	 */
 	private function get_unparsed_documents() {
-		$last_update = get_option(self::LAST_UPDATE_KEY);
+		//$last_update = get_option(self::LAST_UPDATE_KEY);
+		$last_update = '2010-10-10 10:05:00';
 		global $wpdb;
 		$query = "SELECT 
 						id, 
@@ -290,17 +291,24 @@ class Wp_File_Search {
 
 		$documents = $this->get_unparsed_documents();
 		foreach($documents as $document) {
+			$filepath = dirname( __FILE__ ) . '/../../../../wp-content/uploads/' . $document['filename'];
+			$content = NULL;
 			switch ($document['mime_type']) {
 				case 'application/pdf':
-					$filepath = './wp-content/uploads/' . $document['filename'];
 					$content = PdfParser::parse($filepath);
+					break;
+
+				case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+					$content = DocxParser::parse($filepath);
 					break;
 				
 				default:
 					# code...
 					break;
 			}
-
+			if (!$content) {
+				continue;
+			}
 			// add content to postmeta
 			$this->save_doc_contents($document['post_id'], $content);
 		}
