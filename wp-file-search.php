@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       WP File Search
  * Plugin URI:        https://github.com/ellak-monades-aristeias/wp-file-search
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       WP File Search extends the default WP search to lookup on pdf, docx and odt files you have uploaded to the media library.
  * Version:           1.0.0
  * Author:            Antonis Balasas
  * Author URI:        https://github.com/ellak-monades-aristeias/wp-file-search
