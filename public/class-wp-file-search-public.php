@@ -8,16 +8,6 @@
  *
  * @package    Wp_File_Search
  * @subpackage Wp_File_Search/public
- */
-
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
- * @package    Wp_File_Search
- * @subpackage Wp_File_Search/public
  * @author     Antonis Balasas <abalasas@gmail.com>, Anna Damtsa <andamtsa@gmail.com>, Maria Oikonomou <oikonomou.d.maria@gmail.com>
  */
 class Wp_File_Search_Public {
@@ -41,6 +31,8 @@ class Wp_File_Search_Public {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
+
+	private $exec_plugin;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -102,6 +94,26 @@ class Wp_File_Search_Public {
 
 	}
 
+	public function pre_get_posts($query) {
+	    if ($query->is_search() && $query->is_main_query()) {
+
+	    	$this->exec_plugin = true;
+			$options = get_option(self::OPTIONS_KEY);
+    	    $search_type = $options['search_type'];
+
+	        if ($search_type == 'all') {
+		        $post_types = array('post', 'page', 'attachment');
+		        $query->set( 'post_type', $post_types );
+
+		        $post_statuses = array('inherit', 'publish');
+		        $query->set( 'post_status', $post_statuses );
+	        }
+	        return;
+	    } else {
+	    	$this->exec_plugin = false;
+	    }
+	}
+
 	/**
 	 * Implement the 'posts_search' hook for custom search, when search_type
 	 * is set to attached.
@@ -110,6 +122,9 @@ class Wp_File_Search_Public {
 	 */
 	public function posts_search($search) {
 		global $wpdb;
+		if (!$this->exec_plugin) {
+			return $search;
+		} 
 
         $options = get_option(self::OPTIONS_KEY);
         $search_type = $options['search_type'];
@@ -187,6 +202,11 @@ class Wp_File_Search_Public {
 	 */
 	public function posts_where($where) {
 		global $wpdb;
+		return $where;
+		/*
+		if (!$this->exec_plugin) {
+			return $where;
+		} 
 
 		$options = get_option(self::OPTIONS_KEY);
         $search_type = $options['search_type'];
@@ -207,6 +227,7 @@ class Wp_File_Search_Public {
 		}
 
 		return $where;
+		*/
 	}
 
 	public function posts_request($request) {

@@ -11,20 +11,6 @@
  *
  * @package    Wp_File_Search
  * @subpackage Wp_File_Search/includes
- */
-
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- * @package    Wp_File_Search
- * @subpackage Wp_File_Search/includes
  * @author     Antonis Balasas <abalasas@gmail.com>, Anna Damtsa <andamtsa@gmail.com>, Maria Oikonomou <oikonomou.d.maria@gmail.com>
  */
 class Wp_File_Search {
@@ -181,6 +167,7 @@ class Wp_File_Search {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$this->loader->add_filter( 'pre_get_posts', $plugin_public, 'pre_get_posts' );
 		$this->loader->add_filter( 'posts_search', $plugin_public, 'posts_search' );
 		$this->loader->add_filter( 'posts_where', $plugin_public, 'posts_where' );
 		$this->loader->add_filter( 'posts_request', $plugin_public, 'posts_request' );
@@ -244,9 +231,11 @@ class Wp_File_Search {
 	 * @return    array    The list of attachment posts who have not been parsed yet.
 	 */
 	private function get_unparsed_documents() {
-		//$last_update = get_option(self::LAST_UPDATE_KEY);
-		$last_update = '2010-10-10 10:05:00';
 		global $wpdb;
+
+		$last_update = get_option(self::LAST_UPDATE_KEY);
+		//$last_update = '2010-10-10 10:05:00';
+
 		$query = "SELECT 
 						id, 
 						post_mime_type,
@@ -259,7 +248,6 @@ class Wp_File_Search {
 						$wpdb->postmeta pm2 ON pm2.post_id = p.id
 					WHERE 
 						p.post_type = 'attachment' AND
-						p.post_modified_gmt >= '$last_update' AND
 						pm.meta_key = '_wp_attached_file' AND 
 						pm2.meta_id NOT IN (
 							SELECT pm3.meta_id 
