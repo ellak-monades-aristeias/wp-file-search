@@ -94,6 +94,12 @@ class Wp_File_Search_Public {
 
 	}
 
+	/**
+	 * Initialize the plugin (only when search is triggered and main query 
+	 * is executed).
+	 *
+	 * @since    1.0.0
+	 */
 	public function pre_get_posts($query) {
 	    if ($query->is_search() && $query->is_main_query()) {
 
