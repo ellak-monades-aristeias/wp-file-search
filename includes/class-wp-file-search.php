@@ -291,8 +291,11 @@ class Wp_File_Search {
 					$content = DocxParser::parse($filepath);
 					break;
 				
+				case 'application/vnd.oasis.opendocument.text':
+					$content = OdtParser::parse($filepath);
+					break;
+
 				default:
-					# code...
 					break;
 			}
 			if (!$content) {
