@@ -115,6 +115,7 @@ class Wp_File_Search {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/parser.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/docx.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/pdf.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/odt.php';
 
 		$this->loader = new Wp_File_Search_Loader();
 
