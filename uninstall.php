@@ -29,3 +29,12 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+delete_option( 'last_update_key' );
+
+delete_option( 'file_search' );
+
+//drop a custom db table
+global $wpdb;
+$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key = '_doc_content'" );
+
