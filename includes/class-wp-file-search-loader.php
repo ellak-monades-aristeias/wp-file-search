@@ -3,23 +3,12 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://tessera.gr
+ * @link       https://github.com/ellak-monades-aristeias/wp-file-search
  * @since      1.0.0
  *
  * @package    Wp_File_Search
  * @subpackage Wp_File_Search/includes
- */
-
-/**
- * Register all actions and filters for the plugin.
- *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
- * @package    Wp_File_Search
- * @subpackage Wp_File_Search/includes
- * @author     Antonis Balasas <antoniom@tessera.gr>
+ * @author     Antonis Balasas <abalasas@gmail.com>, Anna Damtsa <andamtsa@gmail.com>, Maria Oikonomou <oikonomou.d.maria@gmail.com>
  */
 class Wp_File_Search_Loader {
 

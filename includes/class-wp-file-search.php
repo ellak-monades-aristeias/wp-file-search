@@ -6,28 +6,16 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       http://tessera.gr
+ * @link       https://github.com/ellak-monades-aristeias/wp-file-search
  * @since      1.0.0
  *
  * @package    Wp_File_Search
  * @subpackage Wp_File_Search/includes
- */
-
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- * @package    Wp_File_Search
- * @subpackage Wp_File_Search/includes
- * @author     Antonis Balasas <antoniom@tessera.gr>
+ * @author     Antonis Balasas <abalasas@gmail.com>, Anna Damtsa <andamtsa@gmail.com>, Maria Oikonomou <oikonomou.d.maria@gmail.com>
  */
 class Wp_File_Search {
+
+	const LAST_UPDATE_KEY = "last_update_key";
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -76,6 +64,7 @@ class Wp_File_Search {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		$this->define_system_hooks();
 	}
 
 	/**
@@ -119,6 +108,15 @@ class Wp_File_Search {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wp-file-search-public.php';
 
+		/**
+		 * Add classes required for document parsing.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/autoload.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/parser.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/docx.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/pdf.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/parsers/odt.php';
+
 		$this->loader = new Wp_File_Search_Loader();
 
 	}
@@ -138,7 +136,6 @@ class Wp_File_Search {
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -171,6 +168,21 @@ class Wp_File_Search {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$this->loader->add_filter( 'pre_get_posts', $plugin_public, 'pre_get_posts' );
+		$this->loader->add_filter( 'posts_search', $plugin_public, 'posts_search' );
+		$this->loader->add_filter( 'posts_where', $plugin_public, 'posts_where' );
+		$this->loader->add_filter( 'posts_request', $plugin_public, 'posts_request' );
+	}
+
+	/**
+	 *
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_system_hooks() {
+		$this->loader->add_action( 'document_lookup', $this, 'parse_documents' );
+		//$this->loader->add_action( 'wp_loaded', $this, 'parse_documents' );
 	}
 
 	/**
@@ -211,6 +223,90 @@ class Wp_File_Search {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * Retrieve the unparsed documents.
+	 *
+	 * @since     1.0.0
+	 * @return    array    The list of attachment posts who have not been parsed yet.
+	 */
+	private function get_unparsed_documents() {
+		global $wpdb;
+
+		$last_update = get_option(self::LAST_UPDATE_KEY);
+		//$last_update = '2010-10-10 10:05:00';
+
+		$query = "SELECT 
+						id, 
+						post_mime_type,
+						pm.meta_value as filename
+					FROM 
+						$wpdb->posts p
+					LEFT JOIN 
+						$wpdb->postmeta pm ON pm.post_id = p.id
+					LEFT JOIN 
+						$wpdb->postmeta pm2 ON pm2.post_id = p.id
+					WHERE 
+						p.post_type = 'attachment' AND
+						pm.meta_key = '_wp_attached_file' AND 
+						pm2.meta_id NOT IN (
+							SELECT pm3.meta_id 
+							FROM $wpdb->postmeta pm3
+							WHERE pm3.meta_key='_doc_content' 
+						)";
+
+		// save to wp_postmeta
+		$results = $wpdb->get_results($query);
+
+		// access plugin settings
+		$unparsed = [];
+		foreach($results as $result) {
+			$unparsed[] = [
+							'post_id' => $result->id,
+							'mime_type' => $result->post_mime_type, 
+							'filename' => $result->filename
+						];
+		}
+
+		return $unparsed;
+	}
+
+	private function save_doc_contents($post_id, $doc_contents) {
+		add_post_meta($post_id, '_doc_content', $doc_contents, TRUE);
+	}
+
+	public function parse_documents() {
+
+		$documents = $this->get_unparsed_documents();
+		foreach($documents as $document) {
+			$filepath = dirname( __FILE__ ) . '/../../../../wp-content/uploads/' . $document['filename'];
+			$content = NULL;
+			switch ($document['mime_type']) {
+				case 'application/pdf':
+					$content = PdfParser::parse($filepath);
+					break;
+
+				case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+					$content = DocxParser::parse($filepath);
+					break;
+				
+				case 'application/vnd.oasis.opendocument.text':
+					$content = OdtParser::parse($filepath);
+					break;
+
+				default:
+					break;
+			}
+			if (!$content) {
+				continue;
+			}
+			// add content to postmeta
+			$this->save_doc_contents($document['post_id'], $content);
+		}
+
+		// update last parsing date
+		update_option(self::LAST_UPDATE_KEY, gmdate('Y-m-d H:i:s'));
 	}
 
 }
