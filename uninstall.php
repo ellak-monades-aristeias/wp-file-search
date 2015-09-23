@@ -19,7 +19,7 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       http://tessera.gr
+ * @link       https://github.com/ellak-monades-aristeias/wp-file-search
  * @since      1.0.0
  *
  * @package    Wp_File_Search
@@ -30,8 +30,27 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-delete_option( 'last_update_key' );
+// Important: Check if the file is the one
+// that was registered during the uninstall hook.
+if ( 'wp-file-search/wp-file-search.php' !== WP_UNINSTALL_PLUGIN )  {
+	exit;
+}
+// Check if the $_REQUEST content actually is the plugin name
+if ( ! in_array( 'wp-file-search/wp-file-search.php', $_REQUEST['checked'] ) ) {
+	exit;
+}
+if ( 'delete-selected' !== $_REQUEST['action'] ) {
+	exit;
+}
+// Check user roles.
+if ( ! current_user_can( 'activate_plugins' ) ) {
+	exit;
+}
+// Run an admin referrer check to make sure it goes through authentication
+check_admin_referer( 'bulk-plugins' );
 
+// Safe to carry on
+delete_option( 'last_update_key' );
 delete_option( 'file_search' );
 
 //drop a custom db table
