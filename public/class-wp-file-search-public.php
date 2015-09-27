@@ -12,7 +12,7 @@
  */
 class Wp_File_Search_Public {
 
-    const OPTIONS_KEY = "file_search";
+    const OPTIONS_KEY = "wp_file_search_wfs_file_search";
 
 	/**
 	 * The ID of this plugin.

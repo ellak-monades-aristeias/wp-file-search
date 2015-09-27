@@ -15,7 +15,7 @@
  */
 class Wp_File_Search {
 
-	const LAST_UPDATE_KEY = "last_update_key";
+	const LAST_UPDATE_KEY = "wp_file_search_wfs_last_update_key";
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
