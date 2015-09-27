@@ -15,7 +15,11 @@
  */
 class Wp_File_Search {
 
-	const LAST_UPDATE_KEY = "last_update_key";
+	const OPTIONS_LAST_UPDATE_KEY = "last_update_key";
+    const OPTIONS_KEY = "file_search";
+    const OPT_DIRECT_PARSING = "direct_parsing";
+    const OPT_FILE_TYPES = "file_types";
+    const OPT_SEARCH_TYPE = "search_type";
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -236,7 +240,7 @@ class Wp_File_Search {
 	private function get_unparsed_documents() {
 		global $wpdb;
 
-		$last_update = get_option(self::LAST_UPDATE_KEY);
+		$last_update = get_option(self::OPTIONS_LAST_UPDATE_KEY);
 		//$last_update = '2010-10-10 10:05:00';
 
 		$query = "SELECT 
@@ -291,8 +295,8 @@ class Wp_File_Search {
 	 */
 	private function parse_documents($direct_parsing_hook) {
 
-		$options = get_option('file_search');
-        $direct_parsing_option = $options['direct_parsing'];
+		$options = get_option(self::OPTIONS_KEY);
+        $direct_parsing_option = $options[self::OPT_DIRECT_PARSING];
         if ($direct_parsing_option !== $direct_parsing_hook) {
         	return;
         }
@@ -327,7 +331,7 @@ class Wp_File_Search {
 		}
 
 		// update last parsing date
-		update_option(self::LAST_UPDATE_KEY, gmdate('Y-m-d H:i:s'));
+		update_option(self::OPTIONS_LAST_UPDATE_KEY, gmdate('Y-m-d H:i:s'));
 	}
 
 	/**
