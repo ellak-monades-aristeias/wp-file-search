@@ -151,7 +151,6 @@ class Wp_File_Search {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -181,7 +180,10 @@ class Wp_File_Search {
 	 * @access   private
 	 */
 	private function define_system_hooks() {
-		$this->loader->add_action( 'document_lookup', $this, 'parse_documents' );
+		$this->loader->add_action( 'document_lookup', $this, 'scheduled_document_check' );
+		$this->loader->add_action( 'add_attachment', $this, 'event_driven_document_check' );
+
+		// debug only!
 		//$this->loader->add_action( 'wp_loaded', $this, 'parse_documents' );
 	}
 
@@ -272,15 +274,34 @@ class Wp_File_Search {
 		return $unparsed;
 	}
 
+	/**
+	 * Saves documents found on postmeta table.
+	 *
+	 * @since     1.0.0
+	 */
 	private function save_doc_contents($post_id, $doc_contents) {
 		add_post_meta($post_id, '_doc_content', $doc_contents, TRUE);
 	}
 
-	public function parse_documents() {
+	/**
+	 * Parses each compatible document found.
+	 *
+	 * @param     boolean     $direct_parsing     Proceeds parsing only when this parameter and admin's choice match.
+	 * @since     1.0.0
+	 */
+	private function parse_documents($direct_parsing_hook) {
 
-		$documents = $this->get_unparsed_documents();
+		$options = get_option('file_search');
+        $direct_parsing_option = $options['direct_parsing'];
+        if ($direct_parsing_option !== $direct_parsing_hook) {
+        	return;
+        }
+
+		$documents = $this->get_unparsed_documents();			
+
 		foreach($documents as $document) {
 			$filepath = dirname( __FILE__ ) . '/../../../../wp-content/uploads/' . $document['filename'];
+
 			$content = NULL;
 			switch ($document['mime_type']) {
 				case 'application/pdf':
@@ -307,6 +328,24 @@ class Wp_File_Search {
 
 		// update last parsing date
 		update_option(self::LAST_UPDATE_KEY, gmdate('Y-m-d H:i:s'));
+	}
+
+	/**
+	 * Triggers document parsing when scheduled check is enabled.
+	 *
+	 * @since     1.0.0
+	 */
+	public function scheduled_document_check() {
+		$this->parse_documents(FALSE);
+	}
+
+	/**
+	 * Triggers document parsing when event driven check is enabled.
+	 *
+	 * @since     1.0.0
+	 */
+	public function event_driven_document_check() {
+		$this->parse_documents(TRUE);	
 	}
 
 }
