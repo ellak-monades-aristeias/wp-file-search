@@ -132,8 +132,4 @@ class Wp_File_Search_Admin {
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wp-file-search-admin.js', array('jquery'), $this->version, false);
     }
 
-    private function save_options() {
-        
-    }
-
 }
