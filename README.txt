@@ -4,8 +4,8 @@ Tags: file, search, pdf, docx, odt
 Requires at least: 4.2.5
 Tested up to: 4.3.1
 Stable tag: 1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 WP SEARCH FILE enables searching on pdf, docx and odt files
 

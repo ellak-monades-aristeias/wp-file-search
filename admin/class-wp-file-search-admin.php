@@ -22,10 +22,10 @@
  */
 class Wp_File_Search_Admin {
 
-    const OPTIONS_KEY = "file_search";
-    const OPT_DIRECT_PARSING = "direct_parsing";
-    const OPT_FILE_TYPES = "file_types";
-    const OPT_SEARCH_TYPE = "search_type";
+    const OPTIONS_KEY = "wp_file_search_wfs_file_search";
+    const OPT_DIRECT_PARSING = "wp_file_search_wfs_direct_parsing";
+    const OPT_FILE_TYPES = "wp_file_search_wfs_file_types";
+    const OPT_SEARCH_TYPE = "wp_file_search_wfs_search_type";
 
     /**
      * The ID of this plugin.

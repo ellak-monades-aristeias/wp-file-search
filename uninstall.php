@@ -50,8 +50,8 @@ if ( ! current_user_can( 'activate_plugins' ) ) {
 check_admin_referer( 'bulk-plugins' );
 
 // Safe to carry on
-delete_option( 'last_update_key' );
-delete_option( 'file_search' );
+delete_option( 'wp_file_search_wfs_last_update_key' );
+delete_option( 'wp_file_search_wfs_file_search' );
 
 //drop a custom db table
 global $wpdb;
