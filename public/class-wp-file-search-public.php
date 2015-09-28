@@ -12,7 +12,11 @@
  */
 class Wp_File_Search_Public {
 
-    const OPTIONS_KEY = "file_search";
+
+    const OPTIONS_KEY = "wp_file_search_wfs_file_search";
+    const OPT_DIRECT_PARSING = "wp_file_search_wfs_direct_parsing";
+    const OPT_FILE_TYPES = "wp_file_search_wfs_file_types";
+    const OPT_SEARCH_TYPE = "wp_file_search_wfs_search_type";
 
 	/**
 	 * The ID of this plugin.
@@ -105,7 +109,7 @@ class Wp_File_Search_Public {
 
 	    	$this->exec_plugin = true;
 			$options = get_option(self::OPTIONS_KEY);
-    	    $search_type = $options['search_type'];
+    	    $search_type = $options[self::OPT_SEARCH_TYPE];
 
 	        if ($search_type == 'all') {
 		        $post_types = array('post', 'page', 'attachment');
@@ -133,8 +137,8 @@ class Wp_File_Search_Public {
 		} 
 
         $options = get_option(self::OPTIONS_KEY);
-        $search_type = $options['search_type'];
-        $file_types = $options['file_types'];
+        $search_type = $options[self::OPT_SEARCH_TYPE];
+        $file_types = $options[self::OPT_FILE_TYPES];
         $query_file_types = "'" . implode("','", $file_types) . "'";
 
 		$search_terms = get_query_var('search_terms');

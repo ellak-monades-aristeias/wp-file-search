@@ -15,7 +15,11 @@
  */
 class Wp_File_Search {
 
-	const LAST_UPDATE_KEY = "last_update_key";
+    const OPTIONS_LAST_UPDATE_KEY = "wp_file_search_wfs_last_update_key";
+    const OPTIONS_KEY = "wp_file_search_wfs_file_search";
+    const OPT_DIRECT_PARSING = "wp_file_search_wfs_direct_parsing";
+    const OPT_FILE_TYPES = "wp_file_search_wfs_file_types";
+    const OPT_SEARCH_TYPE = "wp_file_search_wfs_search_type";
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -151,7 +155,6 @@ class Wp_File_Search {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -181,8 +184,11 @@ class Wp_File_Search {
 	 * @access   private
 	 */
 	private function define_system_hooks() {
-		$this->loader->add_action( 'document_lookup', $this, 'parse_documents' );
-		//$this->loader->add_action( 'wp_loaded', $this, 'parse_documents' );
+		$this->loader->add_action( 'document_lookup', $this, 'scheduled_document_check' );
+		$this->loader->add_action( 'add_attachment', $this, 'event_driven_document_check' );
+
+		// debug only!
+		//$this->loader->add_action( 'wp_loaded', $this, 'event_driven_document_check' );
 	}
 
 	/**
@@ -234,7 +240,7 @@ class Wp_File_Search {
 	private function get_unparsed_documents() {
 		global $wpdb;
 
-		$last_update = get_option(self::LAST_UPDATE_KEY);
+		$last_update = get_option(self::OPTIONS_LAST_UPDATE_KEY);
 		//$last_update = '2010-10-10 10:05:00';
 
 		$query = "SELECT 
@@ -272,15 +278,34 @@ class Wp_File_Search {
 		return $unparsed;
 	}
 
+	/**
+	 * Saves documents found on postmeta table.
+	 *
+	 * @since     1.0.0
+	 */
 	private function save_doc_contents($post_id, $doc_contents) {
 		add_post_meta($post_id, '_doc_content', $doc_contents, TRUE);
 	}
 
-	public function parse_documents() {
+	/**
+	 * Parses each compatible document found.
+	 *
+	 * @param     boolean     $direct_parsing     Proceeds parsing only when this parameter and admin's choice match.
+	 * @since     1.0.0
+	 */
+	private function parse_documents($direct_parsing_hook) {
 
-		$documents = $this->get_unparsed_documents();
+		$options = get_option(self::OPTIONS_KEY);
+        $direct_parsing_option = $options[self::OPT_DIRECT_PARSING];
+        if ($direct_parsing_option !== $direct_parsing_hook) {
+        	return;
+        }
+
+        $upload_dir = wp_upload_dir();
+		$documents = $this->get_unparsed_documents();	
 		foreach($documents as $document) {
-			$filepath = dirname( __FILE__ ) . '/../../../../wp-content/uploads/' . $document['filename'];
+			$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $document['filename'];
+
 			$content = NULL;
 			switch ($document['mime_type']) {
 				case 'application/pdf':
@@ -306,7 +331,25 @@ class Wp_File_Search {
 		}
 
 		// update last parsing date
-		update_option(self::LAST_UPDATE_KEY, gmdate('Y-m-d H:i:s'));
+		update_option(self::OPTIONS_LAST_UPDATE_KEY, gmdate('Y-m-d H:i:s'));
+	}
+
+	/**
+	 * Triggers document parsing when scheduled check is enabled.
+	 *
+	 * @since     1.0.0
+	 */
+	public function scheduled_document_check() {
+		$this->parse_documents(FALSE);
+	}
+
+	/**
+	 * Triggers document parsing when event driven check is enabled.
+	 *
+	 * @since     1.0.0
+	 */
+	public function event_driven_document_check() {
+		$this->parse_documents(TRUE);	
 	}
 
 }
