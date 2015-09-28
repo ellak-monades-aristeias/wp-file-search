@@ -188,7 +188,7 @@ class Wp_File_Search {
 		$this->loader->add_action( 'add_attachment', $this, 'event_driven_document_check' );
 
 		// debug only!
-		//$this->loader->add_action( 'wp_loaded', $this, 'parse_documents' );
+		//$this->loader->add_action( 'wp_loaded', $this, 'event_driven_document_check' );
 	}
 
 	/**
@@ -301,10 +301,10 @@ class Wp_File_Search {
         	return;
         }
 
-		$documents = $this->get_unparsed_documents();			
-
+        $upload_dir = wp_upload_dir();
+		$documents = $this->get_unparsed_documents();	
 		foreach($documents as $document) {
-			$filepath = dirname( __FILE__ ) . '/../../../../wp-content/uploads/' . $document['filename'];
+			$filepath = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $document['filename'];
 
 			$content = NULL;
 			switch ($document['mime_type']) {
