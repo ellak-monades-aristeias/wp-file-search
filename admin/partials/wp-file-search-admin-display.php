@@ -46,7 +46,7 @@ echo "<h2>" . __('WP File Search Settings', 'wp-file-search') . "</h2>";
     <span class="notes">
         ***
         <?php
-         _e('By selecting Direct file parsing, each file is being parsed during at uploading time. Otherwse all files are checked and parsed in an time interval of 3 hours. It is recommended NOT to check the direct file parsing.', 'wp-file-search');
+         _e('By selecting Direct file parsing, each file is being parsed during at uploading time. Otherwse all files are checked and parsed in an time interval of 1 hour. It is recommended NOT to check the direct file parsing.', 'wp-file-search');
         //_e('By selecting Direct file parsing, each file is being parsed during at uploading time. Otherwse all files are checked and parsed in an time interval of 3 hours.  It is recommended NOT to check the direct file parsing.', 'wp-file-search');
         ?></span> <br/> <br/>
     <input name="<?php echo self::OPT_DIRECT_PARSING; ?>" type="checkbox" <?php checked($options[self::OPT_DIRECT_PARSING], TRUE); ?> value='direct_parsing' />
