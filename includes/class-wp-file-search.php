@@ -266,13 +266,13 @@ class Wp_File_Search {
 		$results = $wpdb->get_results($query);
 
 		// access plugin settings
-		$unparsed = [];
+		$unparsed = array();
 		foreach($results as $result) {
-			$unparsed[] = [
+			$unparsed[] = array(
 							'post_id' => $result->id,
 							'mime_type' => $result->post_mime_type, 
 							'filename' => $result->filename
-						];
+						);
 		}
 
 		return $unparsed;

@@ -11,12 +11,20 @@ WP SEARCH FILE enables searching on pdf, docx and odt files
 
 == Description ==
 
-WP FILE SEARCH  adds a powerful feature at the Wordpress default search mechanism as it enables searching on the content of the files that are uploaded to the Wordpress media library. 
+WP FILE SEARCH adds a powerful feature at the search mechanism of your site, as it enables searching on the content of the files that are uploaded to the WordPress media library. The only thing you have to do is to install the plugin and it will automatically be incorporated with the Wordpress default search mechanism, in order to list not only the pages and articles, but also  all the files that contain a specific key-word.  
 
-Supported file formats:
+= Supported file formats =
+
 * PDF
 * DOCX
 * ODT
+
+
+= Supported languages =
+
+* English
+* Greek
+
 
 == Installation ==
 
@@ -25,13 +33,17 @@ Supported file formats:
 
 == Frequently Asked Questions ==
 
-= What file formats are available on search mechanism =
+= How can I add a search form that will also search in files' content?  =
+
+There is no need to add an extra form. You can simple search through files on the default Wordpress search form.
+
+= What file formats are available on search mechanism? =
 
 pdf, docx, odt.
 
 == Screenshots ==
 
-1. Setting definition
+1. Settings
 
 == Changelog ==
 
