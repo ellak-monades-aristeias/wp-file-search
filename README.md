@@ -1,21 +1,25 @@
 ## wp-file-search
-Το **WP File Search** αποτελεί επέκταση (plugin) για το σύστημα διαχείρισης περιεχομένου Wordpress το οποίο δίνει τη δυνατότητα στους χρήστες της πλατφόρμας να αναζητούν λέξεις-κλειδιά σε αρχεία pdf, docx και odt τα οποία προηγουμένως έχουν αναρτηθεί στο σύστημα.
+**WP File Search** is a Wordpress plugin that parses and stores the content of attachment files (pdf, docx and odt) so that they can be later searched from WP's default search.
 
-### Απαιτήσεις
-Για την εγκατάσταση της εφαρμογής, απαιτείται (προφανώς) η εγκατάσταση της πλατφόρμας wordpress. H έως τώρα ανάπτυξη έχει γίνει σε περιβάλλον Apache (2.2), PHP (>= 5.4) και MySQL (>= 5.5), ωστόσο πιθανότατα το plugin θα είναι λειτουργικό και σε παλαιότερες εκδόσεις.
+### Requirements
+WP File Search has been successfully tested on Wordpress (4.2.5), using Apache (2.2), PHP (>= 5.3) and MySQL (>= 5.5). It will, most probably, work on earlier versions of the software stack mentioned, however it has never been tested these versions. For any compatibility issue contact the authors, or even better, open an [issue](https://github.com/ellak-monades-aristeias/wp-file-search/issues) on github.
+
+### Installation
+You can either install the plugin from [Wordpress plugin directory](https://wordpress.org/plugins/) or `git clone`/download the zip file directly from github. For the latter case you should have [composer](http://getcomposer.org/) installed on your system and run `composer install` inside the plugin directory.
 
 ### Branches
-Δύο είναι τα ενεργά branches από τα οποία μπορείτε να λαμβάνετε τον κώδικα της εφαρμοφής:
- - `master` branch, στο οποίο περιέχεται ο stable, tested κώδικας της εφαρμογής. Το περιεχόμενο του master branch βρίσκεται διαθέσιμο και στο [wordpress plugin directory](https://wordpress.org/plugins/).
- - `development` branch, στο οποίο περιέχεται η τρέχουσα μορφή του plugin με τα πιο πρόσφατα bugs διορθωμένα και νέα features. Το `development` branch γίνεται ανά τακτά χρονικά διαστήματα merge με το master.
+The plugin uses two active branches:
+ - A `master` branch, which contains the stable, tested code of the app. This branch reflects the latest official plugin version and is also accessible though [Wordpress plugin directory](https://wordpress.org/plugins/).
+ - A `development` branch, reflecting the current state of the our codebase and the bugfixes/features to be included in the next release. Whenever a new version releases, `development` branch is merged with `master` branch.
 
-Οποιοδήποτε άλλο branch είναι *πειραματικό* και η χρήση του αποθαρρύνεται.
+Any other branch is considered *experimental* or under development, so please avoid working or cloning them.
 
 ### Wiki
-Στο [wiki](https://github.com/ellak-monades-aristeias/wp-file-search/wiki/%CE%94%CE%B9%CE%B1%CF%87%CE%B5%CE%AF%CF%81%CE%B9%CF%83%CE%B7-%CE%88%CF%81%CE%B3%CE%BF%CF%85) του έργου περιλαμβάνονται αναλυτικές οδηγίες εγκατάστασης και χρήσης. Επίπρόσθετα παρέχονται πληροφορίες για όσου επιθυμούν να συμετέχουν στην επέκταση της εφαρμογής προσθέτοντας νέα features.
+A [plugin wiki](https://github.com/ellak-monades-aristeias/wp-file-search/wiki/%CE%94%CE%B9%CE%B1%CF%87%CE%B5%CE%AF%CF%81%CE%B9%CF%83%CE%B7-%CE%88%CF%81%CE%B3%CE%BF%CF%85) is currently available only in Greek, but there are plans to translate its content in English. The wiki contains installation instructions, a user guide and extension guidelines for developers.
 
 ### Issues
-Μπορείτε να ανεβάσετε issues της εφαρμογής, προσθέτοντας ωστόσο το κατάλληλο label.
- - Χρησιμοποιήστε το label `enhancement` για να αναφέρετε ένα νέο χαρακτηριστικό που θα θέλατε να δείτε.
- - Χρησιμοποιήστε το label `bug` για να αναφέρετε πρόβλημα στην λειτουργικότητα του plugin.
- Το label `user stories` χρησιμοποιείται κυρίως για την αρχική ανάπτυξη της εφαρμογής, καθώς αποτελεί τις αρχικές απαιτήσεις.
+You can add new issues on out github repository, but please use the correct labeling.
+ - Use `enhancement` label to describe a new issue that you want to be implemented.
+ - Use `bug` label to report any bugs that affects the plugin functionality.
+
+`user stories` label is used internally to indicate initial requirements or to breakdown the enhancement label.
