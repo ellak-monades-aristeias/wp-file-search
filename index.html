@@ -34,41 +34,46 @@
         <h2>
 <a id="wp-file-search" class="anchor" href="#wp-file-search" aria-hidden="true"><span class="octicon octicon-link"></span></a>wp-file-search</h2>
 
-<p><strong>WP File Search</strong> is a powerful extension (plugin) for Wordpress content management system  which enables searching on the content of the pdf, docx and odt files that are uploaded to the Wordpress media library. </p>
+<p><strong>WP File Search</strong> is a Wordpress plugin that parses and stores the content of attachment files (pdf, docx and odt) so that they can be later searched from WP's default search.</p>
 
 <h3>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
 
-<p>It is required that you install the Wordpress platform, before installing the wp file search extension. The development  of the plugin has been done with Apache (2.2), PHP (&gt;=4) and MySQL (&gt;=5.5). The plugin will probably be functional also with earlier versions.</p>
+<p>WP File Search has been successfully tested on Wordpress (4.2.5), using Apache (2.2), PHP (&gt;= 5.3) and MySQL (&gt;= 5.5). It will, most probably, work on earlier versions of the software stack mentioned, however it has never been tested these versions. For any compatibility issue contact the authors, or even better, open an <a href="https://github.com/ellak-monades-aristeias/wp-file-search/issues">issue</a> on github.</p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<p>You can either install the plugin from <a href="https://wordpress.org/plugins/">Wordpress plugin directory</a> or <code>git clone</code>/download the zip file directly from github. For the latter case you should have <a href="http://getcomposer.org/">composer</a> installed on your system and run <code>composer install</code> inside the plugin directory.</p>
 
 <h3>
 <a id="branches" class="anchor" href="#branches" aria-hidden="true"><span class="octicon octicon-link"></span></a>Branches</h3>
 
-<p>There are two active branches from where you can download the code of the extension:</p>
+<p>The plugin uses two active branches:</p>
 
 <ul>
-<li>
-<code>master</code> branch, which contained a stable, tested  plugin version. The content of the master branch is available in the <a href="https://wordpress.org/plugins/">wordpress plugin directory</a>.</li>
-<li>
-<code>development</code> branch, where the current version of the plugin is included with the latest bugs corrected and new features added. The development branch is periodically merge with the master.
-Any other branch is <em>experimental</em> and its use is discouraged.</li>
+<li>A <code>master</code> branch, which contains the stable, tested code of the app. This branch reflects the latest official plugin version and is also accessible though <a href="https://wordpress.org/plugins/">Wordpress plugin directory</a>.</li>
+<li>A <code>development</code> branch, reflecting the current state of the our codebase and the bugfixes/features to be included in the next release. Whenever a new version releases, <code>development</code> branch is merged with <code>master</code> branch.</li>
 </ul>
+
+<p>Any other branch is considered <em>experimental</em> or under development, so please avoid working or cloning them.</p>
 
 <h3>
 <a id="wiki" class="anchor" href="#wiki" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wiki</h3>
 
-<p>The <a href="https://github.com/ellak-monades-aristeias/wp-file-search/wiki/%CE%94%CE%B9%CE%B1%CF%87%CE%B5%CE%AF%CF%81%CE%B9%CF%83%CE%B7-%CE%88%CF%81%CE%B3%CE%BF%CF%85">wiki</a>  includes detailed installation and usage instructions. Additional information is provided for those who wish to expand the application  features.</p>
+<p>A <a href="https://github.com/ellak-monades-aristeias/wp-file-search/wiki/%CE%94%CE%B9%CE%B1%CF%87%CE%B5%CE%AF%CF%81%CE%B9%CF%83%CE%B7-%CE%88%CF%81%CE%B3%CE%BF%CF%85">plugin wiki</a> is currently available only in Greek, but there are plans to translate its content in English. The wiki contains installation instructions, a user guide and extension guidelines for developers.</p>
 
 <h3>
 <a id="issues" class="anchor" href="#issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Issues</h3>
 
-<p>You can upload new issues with the appropriate label:</p>
+<p>You can add new issues on out github repository, but please use the correct labeling.</p>
 
 <ul>
-<li>Use the label <code>enhancement</code> to mention a new feature that you would like to be added.</li>
-<li>Use the label <code>bug</code> to report a  functional problem.
-The label <code>user stories</code>  is mainly used for the initial development of the application (initial requirements).</li>
+<li>Use <code>enhancement</code> label to describe a new issue that you want to be implemented.</li>
+<li>Use <code>bug</code> label to report any bugs that affects the plugin functionality.</li>
 </ul>
+
+<p><code>user stories</code> label is used internally to indicate initial requirements or to breakdown the enhancement label.</p>
       </section>
     </div>
 
