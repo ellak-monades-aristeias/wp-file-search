@@ -23,3 +23,7 @@ You can add new issues on out github repository, but please use the correct labe
  - Use `bug` label to report any bugs that affects the plugin functionality.
 
 `user stories` label is used internally to indicate initial requirements or to breakdown the enhancement label.
+
+## Σε ποιους απευθύνεται - Κοινότητες Χρηστών - Προγραμματιστών(Developers) ##
+...εδώ περιγράφετε τους δυνητικούς τελικούς χρήστες του έργου σας και τις κοινότητες χρηστών/developers που θα ενδιαφερόντουσαν να επεκτείνουν το έργο σας. ...
+
