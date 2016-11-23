@@ -1,7 +1,7 @@
 <?php
 include_once 'parser.php';
 
-class DocxParser implements Parser {
+class DocxParser implements ParserWPfileSearch {
 
     public static function parse($filename) {
         $striped_content = '';
