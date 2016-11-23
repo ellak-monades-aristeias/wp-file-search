@@ -1,6 +1,6 @@
 <?php
 
-class PdfParser implements Parser {
+class PdfParser implements ParserWPfileSearch {
 	public static function parse($filename) {
         if (!$filename || !file_exists($filename))
             return false;

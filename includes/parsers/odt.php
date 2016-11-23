@@ -1,7 +1,7 @@
 <?php
 include_once 'parser.php';
 
-class OdtParser implements Parser {
+class OdtParser implements ParserWPfileSearch {
 
     public static function parse($filename) {
         $striped_content = '';
